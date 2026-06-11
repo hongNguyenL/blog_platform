@@ -10,7 +10,7 @@ import { getPublishedEvent } from "@/lib/api";
 import { AlertCircle, MapPin } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAuth } from "react-oidc-context";
-import { Link, useNavigate, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const PublishedEventsPage: React.FC = () => {
   const { isAuthenticated, isLoading, signinRedirect, signoutRedirect } =

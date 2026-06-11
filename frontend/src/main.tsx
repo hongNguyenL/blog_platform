@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import AttendeeLandingPage from "./pages/attendee-landing-page.tsx";
 import { AuthProvider } from "react-oidc-context";
-import { createBrowserRouter, RouterProvider } from "react-router";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import OrganizersLandingPage from "./pages/organizers-landing-page.tsx";
 import DashboardManageEventPage from "./pages/dashboard-manage-event-page.tsx";
 import LoginPage from "./pages/login-page.tsx";

@@ -35,7 +35,7 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAuth } from "react-oidc-context";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 const DashboardListEventsPage: React.FC = () => {
   const { isLoading, user } = useAuth();

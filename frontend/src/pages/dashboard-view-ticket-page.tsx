@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import { Calendar, DollarSign, MapPin, Tag } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAuth } from "react-oidc-context";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 
 const DashboardViewTicketPage: React.FC = () => {
   const [ticket, setTicket] = useState<TicketDetails | undefined>();

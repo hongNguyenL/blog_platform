@@ -32,7 +32,7 @@ export default CallbackPage;
 
 import { useEffect } from "react";
 import { useAuth } from "react-oidc-context";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 const CallbackPage: React.FC = () => {
   const auth = useAuth();

@@ -7,7 +7,7 @@ import { listTickets } from "@/lib/api";
 import { AlertCircle, DollarSign, Tag, Ticket } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAuth } from "react-oidc-context";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 const DashboardListTickets: React.FC = () => {
   const { isLoading, user } = useAuth();

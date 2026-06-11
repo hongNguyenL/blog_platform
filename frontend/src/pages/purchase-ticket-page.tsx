@@ -5,7 +5,7 @@ import { purchaseTicket } from "@/lib/api";
 import { CheckCircle, CreditCard } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAuth } from "react-oidc-context";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router-dom";
 
 const PurchaseTicketPage: React.FC = () => {
   const { eventId, ticketTypeId } = useParams();

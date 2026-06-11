@@ -1,6 +1,6 @@
 import { useAuth } from "react-oidc-context";
 import { Button } from "../components/ui/button";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { AlertCircle, Search } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -48,6 +48,7 @@ const AttendeeLandingPage: React.FC = () => {
   const queryPublishedEvents = async () => {
     if (!query) {
       await refreshPublishedEvents();
+      return;
     }
 
     try {

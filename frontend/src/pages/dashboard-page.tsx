@@ -1,5 +1,5 @@
 import { useRoles } from "@/hooks/use-roles";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 const DashboardPage: React.FC = () => {
   const { isLoading, isOrganizer, isStaff } = useRoles();

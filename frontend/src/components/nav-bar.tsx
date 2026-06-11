@@ -10,7 +10,7 @@ import {
 } from "./ui/dropdown-menu";
 import { LogOut } from "lucide-react";
 import { useRoles } from "@/hooks/use-roles";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 const NavBar: React.FC = () => {
   const { user, signoutRedirect } = useAuth();

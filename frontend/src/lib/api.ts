@@ -13,6 +13,31 @@ import {
   UpdateEventRequest,
 } from "@/domain/domain";
 
+async function readResponseBody(response: Response) {
+  const text = await response.text();
+  if (!text) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(text);
+  } catch {
+    return text;
+  }
+}
+
+function createResponseError(response: Response, body: unknown) {
+  if (body && typeof body === "object" && isErrorResponse(body)) {
+    return new Error(body.error);
+  }
+
+  if (typeof body === "string" && body.length > 0) {
+    return new Error(body);
+  }
+
+  return new Error(`${response.status} ${response.statusText}`);
+}
+
 export const createEvent = async (
   accessToken: string,
   request: CreateEventRequest,
@@ -26,15 +51,10 @@ export const createEvent = async (
     body: JSON.stringify(request),
   });
 
-  const responseBody = await response.json();
+  const responseBody = await readResponseBody(response);
 
   if (!response.ok) {
-    if (isErrorResponse(responseBody)) {
-      throw new Error(responseBody.error);
-    } else {
-      console.error(JSON.stringify(responseBody));
-      throw new Error("An unknown error occurred");
-    }
+    throw createResponseError(response, responseBody);
   }
 };
 
@@ -52,15 +72,10 @@ export const updateEvent = async (
     body: JSON.stringify(request),
   });
 
-  const responseBody = await response.json();
+  const responseBody = await readResponseBody(response);
 
   if (!response.ok) {
-    if (isErrorResponse(responseBody)) {
-      throw new Error(responseBody.error);
-    } else {
-      console.error(JSON.stringify(responseBody));
-      throw new Error("An unknown error occurred");
-    }
+    throw createResponseError(response, responseBody);
   }
 };
 
@@ -76,15 +91,10 @@ export const listEvents = async (
     },
   });
 
-  const responseBody = await response.json();
+  const responseBody = await readResponseBody(response);
 
   if (!response.ok) {
-    if (isErrorResponse(responseBody)) {
-      throw new Error(responseBody.error);
-    } else {
-      console.error(JSON.stringify(responseBody));
-      throw new Error("An unknown error occurred");
-    }
+    throw createResponseError(response, responseBody);
   }
 
   return responseBody as SpringBootPagination<EventSummary>;
@@ -102,15 +112,10 @@ export const getEvent = async (
     },
   });
 
-  const responseBody = await response.json();
+  const responseBody = await readResponseBody(response);
 
   if (!response.ok) {
-    if (isErrorResponse(responseBody)) {
-      throw new Error(responseBody.error);
-    } else {
-      console.error(JSON.stringify(responseBody));
-      throw new Error("An unknown error occurred");
-    }
+    throw createResponseError(response, responseBody);
   }
 
   return responseBody as EventDetails;
@@ -129,13 +134,8 @@ export const deleteEvent = async (
   });
 
   if (!response.ok) {
-    const responseBody = await response.json();
-    if (isErrorResponse(responseBody)) {
-      throw new Error(responseBody.error);
-    } else {
-      console.error(JSON.stringify(responseBody));
-      throw new Error("An unknown error occurred");
-    }
+    const responseBody = await readResponseBody(response);
+    throw createResponseError(response, responseBody);
   }
 };
 
@@ -149,15 +149,10 @@ export const listPublishedEvents = async (
     },
   });
 
-  const responseBody = await response.json();
+  const responseBody = await readResponseBody(response);
 
   if (!response.ok) {
-    if (isErrorResponse(responseBody)) {
-      throw new Error(responseBody.error);
-    } else {
-      console.error(JSON.stringify(responseBody));
-      throw new Error("An unknown error occurred");
-    }
+    throw createResponseError(response, responseBody);
   }
 
   return responseBody as SpringBootPagination<PublishedEventSummary>;
@@ -177,15 +172,10 @@ export const searchPublishedEvents = async (
     },
   );
 
-  const responseBody = await response.json();
+  const responseBody = await readResponseBody(response);
 
   if (!response.ok) {
-    if (isErrorResponse(responseBody)) {
-      throw new Error(responseBody.error);
-    } else {
-      console.error(JSON.stringify(responseBody));
-      throw new Error("An unknown error occurred");
-    }
+    throw createResponseError(response, responseBody);
   }
 
   return responseBody as SpringBootPagination<PublishedEventSummary>;
@@ -201,15 +191,10 @@ export const getPublishedEvent = async (
     },
   });
 
-  const responseBody = await response.json();
+  const responseBody = await readResponseBody(response);
 
   if (!response.ok) {
-    if (isErrorResponse(responseBody)) {
-      throw new Error(responseBody.error);
-    } else {
-      console.error(JSON.stringify(responseBody));
-      throw new Error("An unknown error occurred");
-    }
+    throw createResponseError(response, responseBody);
   }
 
   return responseBody as PublishedEventDetails;
@@ -232,13 +217,8 @@ export const purchaseTicket = async (
   );
 
   if (!response.ok) {
-    const responseBody = await response.json();
-    if (isErrorResponse(responseBody)) {
-      throw new Error(responseBody.error);
-    } else {
-      console.error(JSON.stringify(responseBody));
-      throw new Error("An unknown error occurred");
-    }
+    const responseBody = await readResponseBody(response);
+    throw createResponseError(response, responseBody);
   }
 };
 
@@ -254,15 +234,10 @@ export const listTickets = async (
     },
   });
 
-  const responseBody = await response.json();
+  const responseBody = await readResponseBody(response);
 
   if (!response.ok) {
-    if (isErrorResponse(responseBody)) {
-      throw new Error(responseBody.error);
-    } else {
-      console.error(JSON.stringify(responseBody));
-      throw new Error("An unknown error occurred");
-    }
+    throw createResponseError(response, responseBody);
   }
 
   return responseBody as SpringBootPagination<TicketSummary>;
@@ -280,15 +255,10 @@ export const getTicket = async (
     },
   });
 
-  const responseBody = await response.json();
+  const responseBody = await readResponseBody(response);
 
   if (!response.ok) {
-    if (isErrorResponse(responseBody)) {
-      throw new Error(responseBody.error);
-    } else {
-      console.error(JSON.stringify(responseBody));
-      throw new Error("An unknown error occurred");
-    }
+    throw createResponseError(response, responseBody);
   }
 
   return responseBody as TicketDetails;
@@ -325,15 +295,10 @@ export const validateTicket = async (
     body: JSON.stringify(request),
   });
 
-  const responseBody = await response.json();
+  const responseBody = await readResponseBody(response);
 
   if (!response.ok) {
-    if (isErrorResponse(responseBody)) {
-      throw new Error(responseBody.error);
-    } else {
-      console.error(JSON.stringify(responseBody));
-      throw new Error("An unknown error occurred");
-    }
+    throw createResponseError(response, responseBody);
   }
 
   return responseBody as Promise<TicketValidationResponse>;
